@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { List } from 'antd';
 import Task from './Task';
 
-const tasks = [
+const fakeTasks = [
   { id: 1, task: 'Buy Milk', done: false },
   { id: 2, task: 'Brew Beer', done: false },
   { id: 3, task: 'Buy Trulys', done: false },
@@ -10,6 +11,7 @@ const tasks = [
 ]
 
 export default function TaskList() {
+  const [tasks, setTasks] = useState(fakeTasks)
   return (
     <List
       bordered
