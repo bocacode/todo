@@ -4,9 +4,9 @@ import Task from './Task';
 
 const fakeTasks = [
   { id: 1, task: 'Buy Milk', done: false },
-  { id: 2, task: 'Brew Beer', done: false },
+  { id: 2, task: 'Brew Beer', done: true },
   { id: 3, task: 'Buy Trulys', done: false },
-  { id: 4, task: 'Drink Wine', done: false },
+  { id: 4, task: 'Drink Wine', done: true },
   { id: 5, task: 'Buy Paper Towels', done: false },
 ]
 
