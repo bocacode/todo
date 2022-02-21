@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
-import { List } from 'antd';
+import { useState, useEffect } from "react";
+import { List, Checkbox } from "antd";
 
 export default function Task({ item, setTasks, setLoading }) {
   const [itemStyle, setItemStyle] = useState({})
   useEffect(() => {
-    if(item.done) {
-      setItemStyle({ color: 'grey', textDecoration: 'line-through' });
+    if (item.done) {
+      setItemStyle({ color: "grey", textDecoration: "line-through" });
     } else {
-      setItemStyle({ color: 'black', textDecoration: 'none' });
+      setItemStyle({ color: "black", textDecoration: "none" });
     }
-  }, [item])
+  }, [item]);
   const handleToggleTaskDone = () => {
     setLoading(true)
     fetch(`https://much-todo-bc.uc.r.appspot.com/tasks/${item.id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ done: !item.done })
+      body: JSON.stringify({ done: !item.done }),
     })
       .then(() => {
         // THEN: fetch our tasks
@@ -33,5 +33,12 @@ export default function Task({ item, setTasks, setLoading }) {
         setLoading(false)
       })
   }
-  return <List.Item onClick={handleToggleTaskDone} style={itemStyle}>{item.task}</List.Item>
+  return (
+    <>
+      <List.Item style={itemStyle}>
+        <Checkbox style={{margin: "10px"}} onClick={handleToggleTaskDone} checked={item.done}></Checkbox>
+        {item.task}
+      </List.Item>
+    </>
+  );
 }
