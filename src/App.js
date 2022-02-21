@@ -1,4 +1,4 @@
-import { Menu, Layout } from 'antd';
+import { Layout } from 'antd';
 import Main from './components/Main';
 
 // const { Header, Content, Footer } = Layout
