@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { List } from 'antd';
 
-export default function Task({ item, setTasks }) {
+export default function Task({ item, setTasks, setLoading }) {
   const [itemStyle, setItemStyle] = useState({})
   useEffect(() => {
     if(item.done) {
@@ -11,7 +11,7 @@ export default function Task({ item, setTasks }) {
     }
   }, [item])
   const handleToggleTaskDone = () => {
-    // call api -- patch: `/tasks/${item.id}` send { done: !item.done }
+    setLoading(true)
     fetch(`https://much-todo-bc.uc.r.appspot.com/tasks/${item.id}`, {
       method: 'PATCH',
       headers: {
@@ -23,9 +23,15 @@ export default function Task({ item, setTasks }) {
         // THEN: fetch our tasks
         fetch('https://much-todo-bc.uc.r.appspot.com/tasks')
           .then(response => response.json())
-          .then(data => setTasks(data))
+          .then(data => {
+            setTasks(data)
+            setLoading(false)
+          })
       })
-      .catch(alert)
+      .catch((err) => {
+        alert(err)
+        setLoading(false)
+      })
   }
   return <List.Item onClick={handleToggleTaskDone} style={itemStyle}>{item.task}</List.Item>
 }

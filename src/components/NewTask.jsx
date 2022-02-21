@@ -1,12 +1,13 @@
 import { Input } from 'antd'
 import { useState } from 'react'
 
-export default function NewTask({ setTasks }) {
+export default function NewTask({ setTasks, setLoading }) {
   const [newTask, setNewTask] = useState('')
   const handleButtonSubmit = () => {
     if(newTask.trim() === '') { // if the new task is empty
       return // don't do anything
     }
+    setLoading(true)
     const taskObject = {
       task: newTask,
     }
@@ -22,9 +23,15 @@ export default function NewTask({ setTasks }) {
          // cool, we added a new task, now lets update the list
         fetch('https://much-todo-bc.uc.r.appspot.com/tasks')
           .then(response => response.json())
-          .then(data => setTasks(data))
+          .then(data => {
+            setTasks(data)
+            setLoading(false)
+          })
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+        alert(err)
+        setLoading(false)
+      })
   }
   const handleInputText = event => {
     setNewTask(event.target.value)
