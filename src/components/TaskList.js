@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { List } from 'antd'
 import Task from './Task'
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState([])
+export default function TaskList({ tasks, setTasks }) {
   useEffect(() => {
     // GET DATA FROM API
     fetch('https://much-todo-bc.uc.r.appspot.com/tasks')
@@ -13,13 +12,11 @@ export default function TaskList() {
   }, [])
 
   return (
-    <>
-      <ul>
-        {tasks &&
-          tasks.map(singleTask => {
-            return <li key={singleTask.id}>{singleTask.task}</li>
-          })}
-      </ul>
-    </>
+    <List
+      dataSource={tasks}
+      size="large"
+      bordered
+      renderItem={item => <Task item={item} />}
+    />
   )
 }
