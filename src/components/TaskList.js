@@ -13,7 +13,7 @@ const fakeTasks = [
 export default function TaskList() {
   const [tasks, setTasks] = useState(fakeTasks)
   useEffect(() => {
-    fetch('https://much-todo-mm.uc.r.appspot.com/tasks')
+    fetch('https://much-todo-bc.uc.r.appspot.com/tasks')
       .then(response => response.json())
       .then(data => setTasks(data))
       .catch(alert)
